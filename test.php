@@ -105,5 +105,8 @@ class pcmysql{
 		$sql='select '.$fieds.' from '.$tablename;
 		return $this->query($sql);
 	}
+	function effectnum(){
+		return mysqli_affected_rows($this->result);
+	}
 }
 ?>
