@@ -16,7 +16,6 @@ class pcmysql{
 	}
 	function usedata($databasename){
 		$sql='use '.$databasename;
-		//var_dump($sql);
 		return $this->query($sql);
 	}
 	function getall($tablename){
@@ -30,12 +29,10 @@ class pcmysql{
 	}
 	function fdata($tablename,$filed,$filter){
 		$sql='select * from '.$tablename.' where '.$filed."='".$filter."'";
-		//var_dump($sql);
 		return $this->query($sql);
 	}
 	function delete($tablename,$filed,$filter){
 		$sql='delete from '.$tablename." where ".$filed."='".$filter."'";
-		//var_dump($sql);
 		return $this->query($sql);
 	}
 	function insert($tablename,$dict){
@@ -93,7 +90,6 @@ class pcmysql{
 		$ftype=gettype($value);
 		if ($ftype=='string'){
 			$sql='select * from '.$tablename." where ".$fkey.$logic."'".$fvalue."'";
-			var_dump($sql);
 			return $this->query($sql);
 		}else{
 			$sql='select * from '.$tablename." where ".$fkey.$logic.$fvalue;
@@ -107,6 +103,33 @@ class pcmysql{
 	}
 	function effectnum(){
 		return mysqli_affected_rows($this->result);
+	}
+	function allupdata($tablename,$arr,$find){
+		$sql='desc '.$tablename;
+		$fields=$this->query('desc '.$tablename);
+		foreach($fields as $value){
+			$arrfields[]=$value['Field'];
+		}
+		$str='';
+		for($i=0;$i<sizeof($arrfields);$i++){
+			$type=gettype($arr[$i]);
+			if($type=='string'){
+				$str.=$arrfields[$i]."='".$arr[$i]."',";
+			}else{
+				$str.=$arrfields[$i]."=".$arr[$i].",";
+			}
+		}
+		$str=substr($str,0,strlen($str)-1);
+		foreach($find as $key=>$value){
+			$fkey=$key;
+			$fvalue=$value;
+		}
+		if(gettype($fvalue)=='string'){
+			$sql='update '.$tablename." set ".$str." where ".$fkey."='".$fvalue."'";
+		}else{
+			$sql='update '.$tablename." set ".$str." where ".$fkey."=".$fvalue;
+		}
+		return $this->query($sql);
 	}
 }
 ?>
