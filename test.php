@@ -23,7 +23,7 @@ class pcmysql{
 		$sql='select * from '.$tablename;
 		return $this->query($sql);
 	}
-	function perdata($tablename,$nownum=1,$pernum=1){
+	function perdata($tablename,$nownum=1,$pernum=5){
 		$sql="select * from ".$tablename." limit ".(($nownum-1)*$pernum). ",".$pernum;
 		var_dump($sql);
 		return $this->query($sql);
