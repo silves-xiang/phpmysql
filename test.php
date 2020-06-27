@@ -85,5 +85,25 @@ class pcmysql{
 		var_dump($sql);
 		return $this->query($sql);
 	}
+	function logical($tablename,$filter,$logic){
+		foreach($filter as $key=>$value){
+			$fkey=$key;
+			$fvalue=$value;
+		}
+		$ftype=gettype($value);
+		if ($ftype=='string'){
+			$sql='select * from '.$tablename." where ".$fkey.$logic."'".$fvalue."'";
+			var_dump($sql);
+			return $this->query($sql);
+		}else{
+			$sql='select * from '.$tablename." where ".$fkey.$logic.$fvalue;
+			return $this->query($sql);
+		}
+	}
+	function specifice($tablename,$field){
+		$fieds=implode(",",$field);
+		$sql='select '.$fieds.' from '.$tablename;
+		return $this->query($sql);
+	}
 }
 ?>
