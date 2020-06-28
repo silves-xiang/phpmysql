@@ -3,8 +3,7 @@
 use function PHPSTORM_META\type;
 
 class pcmysql{
-	function __construct($host,$user,$pawd='')
-	{
+	function __construct($host,$user,$pawd=''){
 		$this->host=$host;
 		$this->user=$user;
 		$this->pawd=$pawd;
@@ -77,7 +76,7 @@ class pcmysql{
 				$str.=$key."=".$value." ".$logical." ";
 			}
 		}
-		$str=substr($str,0,strlen($str)-5);
+		$str=substr($str,0,strlen($str)-4);
 		$sql='select * from '.$tablename." where ".$str;
 		var_dump($sql);
 		return $this->query($sql);
@@ -132,4 +131,9 @@ class pcmysql{
 		return $this->query($sql);
 	}
 }
+$con=new pcmysql('localhost','root');
+$con->usedata('test');
+$con->getall('stu');
+$num=$con->effectnum();
+var_dump($num);
 ?>
