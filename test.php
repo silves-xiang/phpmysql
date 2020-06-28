@@ -131,9 +131,4 @@ class pcmysql{
 		return $this->query($sql);
 	}
 }
-$con=new pcmysql('localhost','root');
-$con->usedata('test');
-$con->getall('stu');
-$num=$con->effectnum();
-var_dump($num);
 ?>
