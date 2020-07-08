@@ -23,7 +23,6 @@ class pcmysql{
 	}
 	function perdata($tablename,$nownum=1,$pernum=5){
 		$sql="select * from ".$tablename." limit ".(($nownum-1)*$pernum). ",".$pernum;
-		var_dump($sql);
 		return $this->query($sql);
 	}
 	function fdata($tablename,$filed,$filter){
